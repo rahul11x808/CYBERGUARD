@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CyberGuard Dashboard</title>
+    <style src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"></style>
+     <link rel="stylesheet"
+          href="{% static 'css/dashboard/index.css' %}">
+</head>
+<body>
+	<header>
+		<h1>CyberGuard</h1>
+		<p>Backend connection test</p>
+	</header>
+
+	<main>
+		<h2>Dashboard</h2>
+		<p>If this page loads, the dashboard template is being served.</p>
+		<button type="button" onclick="document.getElementById('status').textContent = 'Page is working.'">
+			Test page
+		</button>
+		<p id="status" role="status">Ready</p>
+	</main>
+</body>
+</html>
