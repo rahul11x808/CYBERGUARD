@@ -1,0 +1,77 @@
+{% extends 'dashboard/bash.html' %}
+{% load static %}
+
+{% block title %}CYBERGUARD | File Hash Generator{% endblock %}
+{% block styles %}<link rel="stylesheet" href="{% static 'css/dashboard/file_hash.css' %}">{% endblock %}
+{% block scripts %}<script src="{% static 'js/file_hash.js' %}" defer></script>{% endblock %}
+
+{% block content %}
+            <section class="page-content">
+                <div class="breadcrumb">
+                    <span>⌂</span><span>Dashboard</span><span>›</span><span class="breadcrumb-current">File Hash Tool</span>
+                </div>
+                <div class="page-heading">
+                    <div class="heading-icon">#</div>
+                    <div class="heading-text">
+                        <h1>File Hash Generator</h1>
+                        <p>Calculate file hash and verify file integrity.</p>
+                    </div>
+                </div>
+
+                <section class="encryption-tool hash-tool">
+                    <div class="hash-layout">
+                        <!-- Left Panel: Upload & Config -->
+                        <div class="hash-form">
+                            <div class="drop-zone" id="drop-zone">
+                                <div class="drop-icon">☁+</div>
+                                <div class="drop-text">
+                                    <strong>Drag &amp; drop a file here</strong> or click to upload
+                                </div>
+                                <p class="field-hint">Supported files: Any type | Max size: 50 MB</p>
+                                <input type="file" id="file-input" class="file-input-hidden">
+                            </div>
+                            <div class="file-info" id="file-info" hidden>
+                                <span class="file-name" id="selected-file-name"></span>
+                                <button type="button" class="remove-file" id="remove-file">✕</button>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="hash-algorithm">Hash Algorithm</label>
+                                <select id="hash-algorithm" class="hash-select">
+                                    <option value="SHA-256">SHA-256</option>
+                                    <option value="SHA-384">SHA-384</option>
+                                    <option value="SHA-512">SHA-512</option>
+                                    <option value="SHA-1">SHA-1</option>
+                                </select>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="verify-hash">Expected Hash (Optional for verification)</label>
+                                <input type="text" id="verify-hash" class="hash-text-input" placeholder="Paste expected hash to verify...">
+                            </div>
+
+                            <button class="primary-action" id="calculate-hash" type="button" disabled>
+                                # &nbsp;Calculate Hash
+                            </button>
+                            <p class="status-message" id="hash-status" role="status" aria-live="polite" hidden></p>
+                        </div>
+
+                        <!-- Right Panel: Output & Results -->
+                        <div class="hash-preview-panel">
+                            <div class="output-heading">
+                                <label for="hash-result">Generated Hash Output</label>
+                                <button class="copy-output" id="copy-hash-result" type="button" disabled>▢ Copy</button>
+                            </div>
+                            <textarea id="hash-result" readonly placeholder="Calculated cryptographic hash will appear here..."></textarea>
+                            
+                            <div class="verification-badge" id="verification-badge" hidden>
+                                <span id="verification-icon">✔</span>
+                                <span id="verification-text">Hashes Match (File is authentic)</span>
+                            </div>
+
+                            <p class="field-hint">Compare this hash with the official source hash to ensure the file has not been tampered with.</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+{% endblock %}

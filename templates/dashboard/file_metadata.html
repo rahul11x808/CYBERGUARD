@@ -1,0 +1,119 @@
+{% extends 'dashboard/bash.html' %}
+{% load static %}
+
+{% block title %}CYBERGUARD | File Metadata &amp; EXIF Viewer{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/dashboard/file_hash.css' %}">
+<style>
+.metadata-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 13px;
+}
+.metadata-table th, .metadata-table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid #1f3354;
+}
+.metadata-table th {
+    color: var(--cyan);
+    font-weight: 600;
+    width: 38%;
+}
+.metadata-table td {
+    color: #e2e8f0;
+    font-family: monospace;
+}
+.privacy-alert {
+    padding: 14px 18px;
+    margin-top: 16px;
+    border-radius: 8px;
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.privacy-alert.warning {
+    background: rgba(245, 158, 11, 0.12);
+    border-color: rgba(245, 158, 11, 0.4);
+    color: #fcd34d;
+}
+.meta-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.meta-badge.safe {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399;
+}
+.meta-badge.danger {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+}
+</style>
+{% endblock %}
+{% block scripts %}<script src="{% static 'js/metadata.js' %}" defer></script>{% endblock %}
+
+{% block content %}
+<section class="page-content">
+    <div class="breadcrumb">
+        <span>⌂</span><span>Dashboard</span><span>›</span><span class="breadcrumb-current">File Metadata Viewer</span>
+    </div>
+    <div class="page-heading">
+        <div class="heading-icon">▣</div>
+        <div class="heading-text">
+            <h1>File Metadata &amp; EXIF Viewer</h1>
+            <p>Inspect file details, MIME type, size, dimensions, and hidden EXIF / GPS properties.</p>
+        </div>
+    </div>
+
+    <section class="encryption-tool hash-tool">
+        <div class="hash-layout">
+            <!-- Left: Upload Card -->
+            <div class="hash-form">
+                <div class="drop-zone" id="meta-drop-zone">
+                    <div class="drop-icon">☁+</div>
+                    <div class="drop-text">
+                        <strong>Drag &amp; drop a file here</strong> or click to upload
+                    </div>
+                    <p class="field-hint">Supports PNG, JPG, PDF, WEBP, DOCX, and all media formats</p>
+                    <input type="file" id="meta-file-input" class="file-input-hidden">
+                </div>
+                <div class="file-info" id="meta-file-info" hidden>
+                    <span class="file-name" id="meta-selected-name"></span>
+                    <button type="button" class="remove-file" id="meta-remove-file">✕</button>
+                </div>
+
+                <button class="primary-action" id="extract-meta-btn" type="button" disabled>
+                    ▣ &nbsp;Extract Metadata
+                </button>
+                <div class="status-message" id="meta-status" hidden></div>
+            </div>
+
+            <!-- Right: Results Card -->
+            <div class="hash-preview-panel">
+                <h3>Extracted File Metadata &amp; Properties</h3>
+                <div id="meta-empty-state" style="padding: 40px 10px; text-align: center; color: var(--text-secondary);">
+                    <p>Upload a file and click Extract to inspect hidden metadata.</p>
+                </div>
+
+                <div id="meta-results-container" hidden>
+                    <table class="metadata-table">
+                        <tbody id="metadata-table-body">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+
+                    <div id="meta-privacy-container"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</section>
+{% endblock %}

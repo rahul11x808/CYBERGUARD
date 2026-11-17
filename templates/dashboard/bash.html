@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CYBERGUARD{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard/base.css' %}">
+    {% block styles %}{% endblock %}
+    {% block scripts %}{% endblock %}
+    <!-- <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon"> -->
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🛡️</div>
+                <div class="logo-text">
+                    <h2>CYBERGUARD</h2>
+                    <span>Cybersecurity Toolkit</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="{% url 'dashboard:index' %}"
+                    class="nav-item{% if request.resolver_match.url_name == 'index' or request.resolver_match.url_name == 'dashboard' %} active{% endif %}">
+                    <span class="nav-icon">⌂</span><span>Dashboard</span>
+                </a>
+                <a href="{% url 'security_tools:password' %}"
+                    class="nav-item{% if request.resolver_match.url_name == 'password' %} active{% endif %}">
+                    <span class="nav-icon">⚿</span><span>Password Tool</span>
+                </a>
+                <a href="{% url 'security_tools:text_encryption' %}"
+                    class="nav-item{% if request.resolver_match.url_name == 'text_encryption' %} active{% endif %}">
+                    <span class="nav-icon">🔒</span><span>Encryption Tool</span>
+                </a>
+                <a href="{% url 'security_tools:file_hash' %}"
+                    class="nav-item{% if request.resolver_match.url_name == 'file_hash' %} active{% endif %}">
+                    <span class="nav-icon">#</span><span>File Hash Tool</span>
+                </a>
+                <a href="{% url 'security_tools:qr_code' %}"
+                    class="nav-item{% if request.resolver_match.url_name == 'qr_code' %} active{% endif %}">
+                    <span class="nav-icon">▦</span><span>QR Code Tool</span>
+                </a>
+                <a href="{% url 'security_tools:file_metadata' %}"
+                    class="nav-item{% if request.resolver_match.url_name == 'file_metadata' %} active{% endif %}">
+                    <span class="nav-icon">▣</span><span>File Metadata</span>
+                </a>
+                <a href="{% url 'security_tools:url_encoder' %}"
+                    class="nav-item{% if request.resolver_match.url_name == 'url_encoder' %} active{% endif %}">
+                    <span class="nav-icon">🔗</span><span>URL Encoder</span>
+                </a>
+                <a href="{% url 'security_tools:http_header' %}"
+                    class="nav-item{% if request.resolver_match.url_name == 'http_header' %} active{% endif %}">
+                    <span class="nav-icon">▤</span><span>HTTP Header Tool</span>
+                </a>
+            </nav>
+            <div class="sidebar-bottom">
+                <a href="#" class="nav-item"><span class="nav-icon">ⓘ</span><span>About</span></a>
+                <a href="#" class="nav-item"><span class="nav-icon">⚙</span><span>Settings</span></a>
+            </div>
+        </aside>
+        <main class="main-content">
+            <header class="top-navbar">
+                <button class="menu-button" id="menu-button" aria-label="Menu" aria-controls="sidebar"
+                    aria-expanded="false">☰</button>
+                <div class="search-box"><span>⌕</span><input type="search" placeholder="Search tools..."></div>
+                <div class="navbar-right">
+                    <button class="notification-button" aria-label="Notifications">♧</button>
+                    {% if user.is_authenticated %}
+                    <div class="user-profile">
+                        <div class="avatar">{{ user.username|first|upper }}</div>
+                        <span>{{ user.get_full_name|default:user.username }}</span>
+                        <a href="{% url 'accounts:logout' %}" style="margin-left: 8px; font-size: 11px; color: var(--cyan); text-decoration: underline;">Logout</a>
+                    </div>
+                    {% else %}
+                    <div class="auth-actions">
+                        <a href="{% url 'accounts:login' %}" class="auth-button">Log In</a>
+                        <a href="{% url 'accounts:register' %}" class="auth-button auth-button-primary">Sign Up</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </header>
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+    
+</body>
+
+</html>

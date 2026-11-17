@@ -1,0 +1,1490 @@
+
+/* =================================
+   1. GLOBAL SETTINGS
+================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-main: #080f20;
+    --bg-sidebar: #091326;
+    --bg-card: #101c32;
+    --border-color: #1b2b48;
+
+    --text-primary: #f1f5ff;
+    --text-secondary: #aab6cc;
+
+    --cyan: #00d9f5;
+    --blue: #168dff;
+    --purple: #a855f7;
+
+    --primary-color: var(--cyan);
+    --card-border: var(--border-color);
+    --muted-color: var(--text-secondary);
+    --green-color: #00d9a0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg-main);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+
+/* =================================
+   2. MAIN DASHBOARD LAYOUT
+================================= */
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* =================================
+   3. SIDEBAR
+================================= */
+
+.sidebar {
+    width: 260px;
+    min-width: 260px;
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    z-index: 10;
+}
+
+.logo {
+    height: 65px;
+    padding: 10px 15px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo-icon {
+    font-size: 32px;
+}
+
+.logo-text h2 {
+    font-size: 21px;
+    letter-spacing: -1px;
+}
+
+.logo-text span {
+    font-size: 9px;
+    color: var(--text-secondary);
+}
+
+.sidebar-nav {
+    padding: 15px 5px;
+}
+
+.nav-item {
+    min-height: 50px;
+    padding: 9px 12px;
+    margin-bottom: 5px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 18px;
+    color: #c4cede;
+
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.nav-icon {
+    font-size: 23px;
+    min-width: 23px;
+    text-align: center;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: linear-gradient(
+        100deg,
+        #063b65,
+        #33217f
+    );
+
+    color: white;
+}
+
+.sidebar-bottom {
+    margin-top: 5px;
+    padding: 15px 5px;
+
+    border-top: 1px solid var(--border-color);
+}
+
+
+/* =================================
+   4. MAIN CONTENT
+================================= */
+
+.main-content {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    min-width: 0;
+}
+
+
+
+/* =================================
+   5. TOP NAVBAR
+================================= */
+
+.top-navbar {
+    height: 65px;
+    padding: 0 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    position: sticky;
+    top: 0;
+    z-index: 9;
+
+    background: #091326;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.menu-button {
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.search-box {
+    width: 290px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 0 12px;
+    margin: auto;
+
+    background: #111d34;
+    border: 1px solid #263957;
+    border-radius: 9px;
+
+    color: var(--text-secondary);
+}
+
+.search-box input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 12px;
+}
+
+.search-box input::placeholder {
+    color: #aab6cc;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.notification-button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 23px;
+    cursor: pointer;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.avatar {
+    width: 29px;
+    height: 29px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+    background: linear-gradient(135deg, #647bff, #a855f7);
+
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.auth-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+
+.auth-button {
+    min-height: 36px;
+    padding: 0 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #3a506f;
+    border-radius: 6px;
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.auth-button:hover {
+    background: #14243d;
+    border-color: #7890b2;
+    color: #ffffff;
+}
+
+.auth-button:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+}
+
+.auth-button:active {
+    transform: translateY(1px);
+}
+
+.auth-button-primary {
+    background: var(--cyan);
+    border-color: var(--cyan);
+    color: #071321;
+}
+
+.auth-button-primary:hover {
+    background: #57e8f7;
+    border-color: #57e8f7;
+    color: #071321;
+}
+
+/* pass main content */
+
+
+
+
+
+.dropdown-arrow {
+    color: #9baac4;
+}
+
+
+/* =====================================
+   6. Page Content
+===================================== */
+
+.page-content {
+    padding: 25px 30px;
+}
+
+
+/* Breadcrumb */
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-bottom: 22px;
+
+    color: #a8b6cf;
+    font-size: 13px;
+}
+
+.breadcrumb-current {
+    color: #dce6f8;
+}
+
+
+/* =====================================
+   7. Page Heading
+===================================== */
+
+.page-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    margin-bottom: 25px;
+}
+
+.heading-icon {
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-shrink: 0;
+
+    background: linear-gradient(145deg, #183d91, #101d63);
+    border: 1px solid #2449a7;
+    border-radius: 50%;
+
+    color: var(--primary-color);
+    font-size: 29px;
+
+    box-shadow: 0 5px 20px rgba(0, 90, 255, 0.15);
+}
+
+.heading-text h1 {
+    font-size: 23px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.heading-text p {
+    color: #aab8d0;
+    font-size: 13px;
+}
+
+/* Password tool tabs */
+.top-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px;
+    margin: 24px 0;
+    width: fit-content;
+    max-width: 100%;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.top-button {
+    appearance: none;
+    border: 0;
+    border-radius: 8px;
+    padding: 12px 20px;
+    background: transparent;
+    color: #64748b;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+}
+
+.top-button:hover {
+    color: #1e293b;
+    background: #e2e8f0;
+}
+
+.top-button.is-active,
+.top-button[aria-selected="true"] {
+    color: #fff;
+    background: #2563eb;
+    box-shadow: 0 2px 7px rgba(37, 99, 235, .22);
+}
+
+.top-button:focus-visible,
+.toggle-strength-button:focus-visible,
+.check-strength-button:focus-visible {
+    outline: 3px solid rgba(59, 130, 246, .35);
+    outline-offset: 3px;
+}
+/* =====================================
+   8. Password Layout
+===================================== */
+
+.password-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 18px;
+    align-items: stretch;
+}
+
+
+/* Common Card */
+
+.card {
+    background: linear-gradient(
+        145deg,
+        #14213b,
+        #101a30
+    );
+
+    border: 1px solid var(--card-border);
+    border-radius: 15px;
+
+    padding: 22px 20px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.card h2 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 23px;
+}
+
+
+/* =====================================
+   9. Password Length
+===================================== */
+
+.length-section {
+    margin-bottom: 25px;
+}
+
+.length-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    margin-bottom: 13px;
+
+    font-size: 13px;
+    color: #d4e2f8;
+}
+
+.length-label span {
+    color: var(--muted-color);
+}
+
+
+/* Range Slider */
+
+.length-section input[type="range"] {
+    width: 100%;
+    height: 7px;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    background: #293957;
+    border-radius: 10px;
+
+    outline: none;
+    cursor: pointer;
+}
+
+.length-section input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+
+    width: 19px;
+    height: 19px;
+
+    background: var(--primary-color);
+    border-radius: 50%;
+
+    box-shadow: 0 0 10px rgba(0, 213, 232, 0.3);
+}
+
+.length-section input[type="range"]::-moz-range-thumb {
+    width: 19px;
+    height: 19px;
+
+    background: var(--primary-color);
+    border: none;
+    border-radius: 50%;
+}
+
+.range-values {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 10px;
+
+    color: #aebbd1;
+    font-size: 12px;
+}
+
+
+/* =====================================
+   10. Checkboxes
+===================================== */
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    color: #d6e0f1;
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+
+/* Hide Default Checkbox */
+
+.checkbox-item input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* Custom Checkbox */
+
+.custom-checkbox {
+    width: 19px;
+    height: 19px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #263a5e;
+    border: 1px solid #526c96;
+    border-radius: 5px;
+
+    transition: 0.2s;
+}
+
+.checkbox-item input:checked + .custom-checkbox {
+    background: linear-gradient(135deg, #00cde8, #397dff);
+    border-color: #16c9ed;
+}
+
+.checkbox-item input:checked + .custom-checkbox::after {
+    content: "✓";
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+/* =====================================
+   11. Generated Password
+===================================== */
+
+.generated-card {
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Password Display */
+
+.password-display {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    margin-bottom: 25px;
+}
+
+.password-display input {
+    width: 100%;
+    min-width: 0;
+    height: 53px;
+
+    padding: 0 14px;
+
+    background: #172541;
+    border: 1px solid #3b5278;
+    border-radius: 11px;
+
+    outline: none;
+
+    color: white;
+    font-size: 17px;
+    letter-spacing: 2px;
+}
+
+.password-display input:focus {
+    border-color: var(--primary-color);
+}
+
+.eye-button,
+.copy-icon-button {
+    width: 49px;
+    height: 49px;
+
+    flex-shrink: 0;
+
+    background: #1a2947;
+    border: 1px solid #344a70;
+    border-radius: 10px;
+
+    color: white;
+    font-size: 20px;
+
+    transition: 0.2s;
+}
+
+.eye-button:hover,
+.copy-icon-button:hover {
+    background: #263c63;
+    border-color: var(--primary-color);
+}
+
+
+/* =====================================
+   12. Password Strength
+===================================== */
+
+.strength-section {
+    margin-bottom: 24px;
+}
+
+.strength-section p {
+    margin-bottom: 13px;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.strength-text {
+    color: var(--green-color);
+    font-weight: 700;
+}
+
+
+/* Strength Bars */
+
+.strength-bars {
+    display: flex;
+    gap: 5px;
+}
+
+.strength-bars span {
+    flex: 1;
+    height: 10px;
+
+    background: linear-gradient(
+        90deg,
+        #00e78d,
+        #00c77d
+    );
+
+    border-radius: 10px;
+
+    box-shadow: 0 0 7px rgba(0, 232, 143, 0.15);
+}
+
+
+/* =====================================
+   13. Action Buttons
+===================================== */
+
+.button-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-top: auto;
+}
+
+.generate-button {
+    flex: 1;
+    min-height: 49px;
+
+    padding: 0 12px;
+
+    background: linear-gradient(
+        110deg,
+        #00d9e9,
+        #398aff
+    );
+
+    border: 1px solid #21c7ee;
+    border-radius: 11px;
+
+    color: #06162a;
+    font-size: 14px;
+    font-weight: 700;
+
+    transition: 0.25s;
+}
+
+.generate-button:hover {
+    filter: brightness(1.12);
+    box-shadow: 0 0 15px rgba(0, 213, 232, 0.2);
+}
+
+.copy-button {
+    min-width: 125px;
+    min-height: 49px;
+
+    padding: 0 15px;
+
+    background: #111e37;
+    border: 1px solid #6375d9;
+    border-radius: 11px;
+
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+
+    transition: 0.25s;
+}
+
+.copy-button span {
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+
+.copy-button:hover {
+    background: #1c2e50;
+    border-color: var(--primary-color);
+}
+
+
+/* =====================================
+   PASSWORD STRENGTH METER
+===================================== */
+
+/* Default meter bars */
+.strength-meter {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    margin-top: 12px;
+}
+
+.strength-meter-bar {
+    flex: 1;
+    height: 7px;
+    border-radius: 20px;
+    background-color: #303b4d;
+    transition: background-color 0.3s ease;
+}
+
+/* VERY WEAK */
+.strength-result-panel[data-strength="very-weak"]
+.strength-meter-bar.is-active {
+    background-color: #ef4444;
+}
+
+/* WEAK */
+.strength-result-panel[data-strength="weak"]
+.strength-meter-bar.is-active {
+    background-color: #f97316;
+}
+
+/* FAIR */
+.strength-result-panel[data-strength="fair"]
+.strength-meter-bar.is-active {
+    background-color: #eab308;
+}
+
+/* STRONG */
+.strength-result-panel[data-strength="strong"]
+.strength-meter-bar.is-active {
+    background-color: #22c55e;
+}
+
+/* VERY STRONG */
+.strength-result-panel[data-strength="very-strong"]
+.strength-meter-bar.is-active {
+    background-color: #16a34a;
+}
+
+/* Empty state */
+.strength-result-panel[data-strength="empty"]
+.strength-meter-bar {
+    background-color: #303b4d;
+}
+
+
+/* =====================================
+   14. Responsive Design
+===================================== */
+
+@media (max-width: 1000px) {
+
+    .page-content {
+        padding: 22px 20px;
+    }
+
+    .password-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .search-box {
+        width: 260px;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .sidebar {
+        width: 65px;
+        min-width: 65px;
+    }
+
+    .logo {
+        justify-content: center;
+        padding: 8px 4px;
+    }
+
+    .logo-text,
+    .nav-item span:not(.nav-icon) {
+        display: none;
+    }
+
+    .nav-item {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .nav-icon {
+        font-size: 20px;
+    }
+
+    .main-content {
+        margin-left: 65px;
+        width: calc(100% - 65px);
+    }
+
+    .top-navbar {
+        padding: 0 12px;
+    }
+
+    .search-box {
+        display: none;
+    }
+
+    .navbar-right {
+        gap: 10px;
+    }
+
+    .user-profile span:not(.dropdown-arrow) {
+        display: none;
+    }
+
+    .auth-actions {
+        gap: 6px;
+    }
+
+    .auth-button {
+        min-height: 32px;
+        padding: 0 9px;
+        font-size: 11px;
+    }
+
+    .page-content {
+        padding: 20px 13px;
+    }
+
+    .heading-text h1 {
+        font-size: 18px;
+    }
+
+    .heading-text p {
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+    .heading-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 23px;
+    }
+
+}
+
+@media (max-width: 850px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.2s ease;
+    }
+
+    .sidebar.sidebar-open {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 420px) {
+
+    .card {
+        padding: 18px 14px;
+    }
+
+    .card h2 {
+        font-size: 15px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .generate-button,
+    .copy-button {
+        width: 100%;
+    }
+
+    .password-display input {
+        font-size: 13px;
+    }
+
+}
+
+
+
+/* Strength checker panel */
+.strength-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 760px);
+    justify-content: center;
+    width: 100%;
+}
+
+.strength-checker-card {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 28px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
+}
+
+.strength-card-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 26px;
+}
+
+.strength-card-heading h2 {
+    margin: 0 0 8px;
+    color: #0f172a;
+    font-size: 22px;
+}
+
+.strength-card-heading p,
+.strength-help {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.strength-heading-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: #eff6ff;
+    font-size: 23px;
+}
+
+.strength-input-label {
+    display: block;
+    margin-bottom: 9px;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.strength-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 6px 5px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background: #fff;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.strength-input-wrap:focus-within {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, .12);
+}
+
+.strength-input-wrap input {
+    flex: 1;
+    min-width: 0;
+    padding: 10px 0;
+    border: 0;
+    outline: 0;
+    color: #0f172a;
+    background: transparent;
+    font: inherit;
+}
+
+.toggle-strength-button {
+    padding: 8px 13px;
+    border: 0;
+    border-radius: 7px;
+    color: #2563eb;
+    background: #eff6ff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.strength-help {
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+.check-strength-button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 13px 18px;
+    border: 0;
+    border-radius: 9px;
+    color: #fff;
+    background: #2563eb;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s ease, transform .2s ease;
+}
+
+.check-strength-button:hover {
+    background: #1d4ed8;
+}
+
+.check-strength-button:active {
+    transform: translateY(1px);
+}
+
+.strength-result-panel {
+    margin-top: 24px;
+    padding: 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+.strength-result-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.strength-result-title {
+    color: #475569;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.strength-text {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.strength-meter {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 7px;
+}
+
+.strength-meter-bar {
+    height: 8px;
+    border-radius: 99px;
+    background: #e2e8f0;
+    transition: background .2s ease;
+}
+
+.strength-result-panel[data-strength="very-weak"] .strength-text { color: #dc2626; }
+.strength-result-panel[data-strength="weak"] .strength-text { color: #f97316; }
+.strength-result-panel[data-strength="fair"] .strength-text { color: #d97706; }
+.strength-result-panel[data-strength="strong"] .strength-text { color: #16a34a; }
+.strength-result-panel[data-strength="very-strong"] .strength-text { color: #15803d; }
+
+.strength-result-panel[data-strength="very-weak"] .strength-meter-bar.is-active { background: #ef4444; }
+.strength-result-panel[data-strength="weak"] .strength-meter-bar.is-active { background: #f97316; }
+.strength-result-panel[data-strength="fair"] .strength-meter-bar.is-active { background: #f59e0b; }
+.strength-result-panel[data-strength="strong"] .strength-meter-bar.is-active,
+.strength-result-panel[data-strength="very-strong"] .strength-meter-bar.is-active { background: #22c55e; }
+
+.strength-requirements {
+    margin-top: 24px;
+}
+
+.strength-requirements h3 {
+    margin: 0 0 14px;
+    color: #0f172a;
+    font-size: 16px;
+}
+
+.strength-check-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.strength-check-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.strength-check-item span {
+    display: inline-grid;
+    place-items: center;
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: #94a3b8;
+    background: #f1f5f9;
+    font-weight: 700;
+}
+
+.strength-check-item.is-met {
+    color: #15803d;
+}
+
+.strength-check-item.is-met span {
+    color: #fff;
+    background: #16a34a;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 600px) {
+    .top-buttons {
+        display: flex;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .top-button {
+        flex: 1;
+        padding: 11px 8px;
+        font-size: 13px;
+    }
+
+    .strength-checker-card {
+        padding: 20px 16px;
+    }
+
+    .strength-check-list {
+        grid-template-columns: 1fr;
+    }
+
+    .strength-result-top {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+    }
+}
+
+/* Match the strength checker to the password generator theme. */
+.top-buttons {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+}
+
+.top-button {
+    color: var(--text-secondary);
+}
+
+.top-button:hover {
+    color: var(--text-primary);
+    background: #263c63;
+}
+
+.top-button.is-active,
+.top-button[aria-selected="true"] {
+    color: #06162a;
+    background: linear-gradient(110deg, #00d9e9, #398aff);
+    box-shadow: 0 2px 10px rgba(0, 213, 232, 0.2);
+}
+
+.strength-checker-card {
+    background: linear-gradient(145deg, #14213b, #101a30);
+    border-color: var(--border-color);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.strength-card-heading h2,
+.strength-requirements h3 {
+    color: var(--text-primary);
+}
+
+.strength-card-heading p,
+.strength-help,
+.strength-input-label,
+.strength-requirements .strength-check-item {
+    color: var(--text-secondary);
+}
+
+.strength-input-wrap,
+.strength-result-panel {
+    background: #0b1528;
+    border-color: var(--border-color);
+}
+
+.strength-input-wrap input {
+    color: var(--text-primary);
+}
+
+.toggle-strength-button {
+    color: var(--cyan);
+    background: #172541;
+}
+
+.check-strength-button {
+    color: #06162a;
+    background: linear-gradient(110deg, #00d9e9, #398aff);
+}
+
+.check-strength-button:hover {
+    filter: brightness(1.12);
+    background: linear-gradient(110deg, #00d9e9, #398aff);
+}
+
+.strength-result-title {
+    color: #d4e2f8;
+}
+
+.strength-result-top .strength-text {
+    color: var(--text-secondary);
+}
+
+.strength-meter-bar {
+    background: #293957;
+}
+
+.strength-result-panel[data-strength="very-weak"] .strength-text { color: #ff6572; }
+.strength-result-panel[data-strength="weak"] .strength-text { color: #f97316; }
+.strength-result-panel[data-strength="fair"] .strength-text { color: #f0b44d; }
+.strength-result-panel[data-strength="strong"] .strength-text { color: #28c7a2; }
+.strength-result-panel[data-strength="very-strong"] .strength-text { color: #00d9f5; }
+
+.strength-result-panel[data-strength="very-weak"] .strength-meter-bar.is-active { background: #ff6572; }
+.strength-result-panel[data-strength="weak"] .strength-meter-bar.is-active { background: #f97316; }
+.strength-result-panel[data-strength="fair"] .strength-meter-bar.is-active { background: #f0b44d; }
+.strength-result-panel[data-strength="strong"] .strength-meter-bar.is-active,
+.strength-result-panel[data-strength="very-strong"] .strength-meter-bar.is-active { background: #28c7a2; }
+
+.strength-check-item span {
+    color: #8290a8;
+    background: #172541;
+}
+
+.strength-check-item.is-met,
+.strength-check-item.is-met span {
+    color: #28c7a2;
+}
+
+.strength-check-item.is-met span {
+    color: #06162a;
+    background: #28c7a2;
+}
+
+
+
+/* =====================================
+   PASSWORD GENERATOR STRENGTH COLORS
+===================================== */
+
+/* Default inactive bars */
+.generated-card .strength-bars span {
+    background: #293957;
+    box-shadow: none;
+    transition: background 0.3s ease;
+}
+
+/* Very Weak */
+.generated-card .strength-section[data-strength="very-weak"]
+.strength-bars span.is-active {
+    background: #ef4444;
+}
+
+/* Weak */
+.generated-card .strength-section[data-strength="weak"]
+.strength-bars span.is-active {
+    background: #f97316;
+}
+
+/* Fair */
+.generated-card .strength-section[data-strength="fair"]
+.strength-bars span.is-active {
+    background: #eab308;
+}
+
+/* Strong */
+.generated-card .strength-section[data-strength="strong"]
+.strength-bars span.is-active {
+    background: #22c55e;
+}
+
+/* Very Strong */
+.generated-card .strength-section[data-strength="very-strong"]
+.strength-bars span.is-active {
+    background: #00d9a0;
+}
+
+/* Strength text colors */
+.generated-card .strength-section[data-strength="very-weak"] .strength-text {
+    color: #ef4444;
+}
+
+.generated-card .strength-section[data-strength="weak"] .strength-text {
+    color: #f97316;
+}
+
+.generated-card .strength-section[data-strength="fair"] .strength-text {
+    color: #eab308;
+}
+
+.generated-card .strength-section[data-strength="strong"] .strength-text {
+    color: #22c55e;
+}
+
+.generated-card .strength-section[data-strength="very-strong"] .strength-text {
+    color: #00d9a0;
+}
+
+/* Button interactions */
+.generate-button,
+.copy-button,
+.copy-icon-button,
+.eye-button {
+    cursor: pointer;
+}
+
+.generate-button:active,
+.copy-button:active,
+.copy-icon-button:active,
+.eye-button:active {
+    transform: scale(0.98);
+}
+
+
+/* Generator strength meter */
+
+.generated-card .strength-bars span {
+    background: #293957;
+    box-shadow: none;
+    transition: background 0.3s ease;
+}
+
+/* Very Weak */
+.generated-card .strength-section[data-strength="very-weak"] .strength-bars span.is-active {
+    background: #ef4444;
+}
+
+/* Weak */
+.generated-card .strength-section[data-strength="weak"] .strength-bars span.is-active {
+    background: #f97316;
+}
+
+/* Fair */
+.generated-card .strength-section[data-strength="fair"] .strength-bars span.is-active {
+    background: #eab308;
+}
+
+/* Strong */
+.generated-card .strength-section[data-strength="strong"] .strength-bars span.is-active {
+    background: #22c55e;
+}
+
+/* Very Strong */
+.generated-card .strength-section[data-strength="very-strong"] .strength-bars span.is-active {
+    background: #00d9a0;
+}
+
+/* Strength text */
+.generated-card .strength-section[data-strength="very-weak"] .strength-text {
+    color: #ef4444;
+}
+
+.generated-card .strength-section[data-strength="weak"] .strength-text {
+    color: #f97316;
+}
+
+.generated-card .strength-section[data-strength="fair"] .strength-text {
+    color: #eab308;
+}
+
+.generated-card .strength-section[data-strength="strong"] .strength-text {
+    color: #22c55e;
+}
+
+.generated-card .strength-section[data-strength="very-strong"] .strength-text {
+    color: #00d9a0;
+}
+
+/* Checkbox interaction */
+.checkbox-item {
+    cursor: pointer;
+}
+
+.checkbox-item input {
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.eye-button,
+.copy-icon-button,
+.copy-button,
+.generate-button {
+    cursor: pointer;
+}
