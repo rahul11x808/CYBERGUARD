@@ -1,0 +1,95 @@
+{% extends 'dashboard/bash.html' %}
+{% load static %}
+
+{% block title %}CYBERGUARD | QR Code Generator{% endblock %}
+{% block styles %}<link rel="stylesheet" href="{% static 'css/dashboard/qr_code.css' %}">{% endblock %}
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js" defer></script>
+<script src="{% static 'js/qr_code.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+            <section class="page-content">
+                <div class="breadcrumb"><span>⌂</span><span>Dashboard</span><span>›</span><span
+                        class="breadcrumb-current">QR Code Tool</span></div>
+                <div class="page-heading">
+                    <div class="heading-icon">▦</div>
+                    <div class="heading-text">
+                        <h1>QR Code Generator &amp; Scanner</h1>
+                        <p>Generate QR codes from text or URLs, or scan an uploaded QR image.</p>
+                    </div>
+                </div>
+
+                <section class="encryption-tool qr-tool">
+                    <div class="mode-tabs" role="tablist" aria-label="QR code mode">
+                        <button class="mode-tab active" id="generate-tab" type="button" role="tab" aria-selected="true"
+                            aria-controls="generate-panel">▦ Generate QR</button>
+                        <button class="mode-tab" id="scan-tab" type="button" role="tab" aria-selected="false"
+                            aria-controls="scan-panel">⌕ Scan QR</button>
+                    </div>
+                    <div class="mode-panel qr-layout" id="generate-panel" role="tabpanel" aria-labelledby="generate-tab">
+                        <div class="qr-form">
+                            <div class="field-group">
+                                <label for="content-type">QR Content Type</label>
+                                <select id="content-type" class="qr-select">
+                                    <option value="text">Text</option>
+                                    <option value="url">URL</option>
+                                    <option value="wifi">Wi-Fi network</option>
+                                </select>
+                            </div>
+                            <div class="field-group" id="text-field-group">
+                                <label id="content-label" for="content">Enter Text</label>
+                                <textarea id="content" placeholder="Type something..."></textarea>
+                            </div>
+                            <div class="wifi-fields" id="wifi-fields" hidden>
+                                <div class="field-group">
+                                    <label for="wifi-name">Network name (SSID)</label>
+                                    <input id="wifi-name" type="text" autocomplete="off" placeholder="Your Wi-Fi name">
+                                </div>
+                                <div class="field-group">
+                                    <label for="wifi-security">Security</label>
+                                    <select id="wifi-security" class="qr-select">
+                                        <option value="WPA">WPA/WPA2</option>
+                                        <option value="WEP">WEP</option>
+                                        <option value="nopass">No password</option>
+                                    </select>
+                                </div>
+                                <div class="field-group" id="wifi-password-group">
+                                    <label for="wifi-password">Network password</label>
+                                    <input id="wifi-password" type="password" autocomplete="new-password" placeholder="Your Wi-Fi password">
+                                </div>
+                            </div>
+                            <button class="primary-action" id="generate-qr" type="button">▦ &nbsp;Generate QR</button>
+                            <p class="status-message" id="generate-status" role="status" aria-live="polite" hidden></p>
+                        </div>
+                        <div class="qr-preview-panel">
+                            <div id="qrcode" class="qr-output" aria-label="Generated QR code"></div>
+                            <p class="qr-empty" id="qr-empty">Your QR code will appear here.</p>
+                            <button class="primary-action" id="download-qr" type="button" hidden>↓ &nbsp;Download QR</button>
+                        </div>
+                    </div>
+
+                    <div class="mode-panel qr-layout" id="scan-panel" role="tabpanel" aria-labelledby="scan-tab" hidden>
+                        <div class="qr-form">
+                            <div class="field-group">
+                                <label for="qr-image">Upload QR image</label>
+                                <input id="qr-image" type="file" accept="image/*">
+                                <p class="field-hint">Choose a clear PNG, JPEG, or WebP image containing a QR code.</p>
+                            </div>
+                            <img id="scan-preview" class="scan-preview" alt="Selected image preview" hidden>
+                            <button class="primary-action" id="scan-qr" type="button" disabled>⌕ &nbsp;Scan Image</button>
+                            <p class="status-message" id="scan-status" role="status" aria-live="polite" hidden></p>
+                        </div>
+                        <div class="qr-preview-panel scan-result-panel">
+                            <div class="output-heading">
+                                <label for="scan-result">Scanned Content</label>
+                                <button class="copy-output" id="copy-scan-result" type="button" disabled>▢ Copy</button>
+                            </div>
+                            <textarea id="scan-result" readonly placeholder="Scanned QR content will appear here..."></textarea>
+                            <p class="field-hint">QR contents are shown as text. Verify the content before using it.</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+{% endblock %}

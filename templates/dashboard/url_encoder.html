@@ -1,0 +1,53 @@
+{% extends 'dashboard/bash.html' %}
+{% load static %}
+
+{% block title %}CYBERGUARD | URL Encoder &amp; Decoder{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/dashboard/text_cipher.css' %}">
+{% endblock %}
+{% block scripts %}<script src="{% static 'js/url_encoder.js' %}" defer></script>{% endblock %}
+
+{% block content %}
+<section class="page-content">
+    <div class="breadcrumb">
+        <span>⌂</span><span>Dashboard</span><span>›</span><span class="breadcrumb-current">URL Encoder &amp; Decoder</span>
+    </div>
+    <div class="page-heading">
+        <div class="heading-icon">🔗</div>
+        <div class="heading-text">
+            <h1>URL Encoder &amp; Decoder</h1>
+            <p>Encode special characters into standard percent-encoded URL formats or decode them back to plain text.</p>
+        </div>
+    </div>
+
+    <section class="encryption-tool">
+        <div class="mode-tabs" role="tablist" aria-label="URL mode">
+            <button class="mode-tab active" id="encode-tab" type="button" role="tab" aria-selected="true">🔗 Encode URL</button>
+            <button class="mode-tab" id="decode-tab" type="button" role="tab" aria-selected="false">♧ Decode URL</button>
+        </div>
+
+        <div class="tool-fields" style="grid-template-columns: 1fr;">
+            <div class="field-group">
+                <label for="url-input" id="input-label">Input URL or Text to Encode</label>
+                <textarea id="url-input" placeholder="Enter URL or text (e.g. https://example.com/search?q=cyber security &amp; test#123)..." style="min-height: 120px;"></textarea>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-top: 15px;">
+            <button class="primary-action" id="process-url-btn" type="button" style="margin: 0;">
+                🔗 &nbsp;Process URL
+            </button>
+        </div>
+        <div class="status-message" id="url-status" hidden></div>
+
+        <div class="output-panel" id="url-output-panel" hidden style="margin-top: 25px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <label id="url-output-label" style="font-weight: 600; color: var(--cyan);">Processed Result</label>
+                <button class="secondary-action" id="copy-url-btn" type="button" style="padding: 4px 10px; font-size: 11px;">▢ &nbsp;Copy Result</button>
+            </div>
+            <textarea id="url-output-text" readonly style="min-height: 100px; font-family: monospace;"></textarea>
+        </div>
+    </section>
+</section>
+{% endblock %}
+

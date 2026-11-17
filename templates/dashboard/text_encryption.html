@@ -1,0 +1,71 @@
+{% extends 'dashboard/bash.html' %}
+{% load static %}
+
+{% block title %}CYBERGUARD | Text Encryption{% endblock %}
+{% block styles %}<link rel="stylesheet" href="{% static 'css/dashboard/text_cipher.css' %}">{% endblock %}
+{% block scripts %}<script src="{% static 'js/text.js' %}" defer></script>{% endblock %}
+
+{% block content %}
+            <section class="page-content">
+                <div class="breadcrumb"><span>⌂</span><span>Dashboard</span><span>›</span><span
+                        class="breadcrumb-current">Text Encryption</span></div>
+                <div class="page-heading">
+                    <div class="heading-icon">🔒</div>
+                    <div class="heading-text">
+                        <h1>Text Encryption &amp; Decryption</h1>
+                        <p>Encrypt your text securely and decrypt it using the key.</p>
+                    </div>
+                </div>
+
+                <section class="encryption-tool">
+                    <div class="algorithm-picker">
+                        <label for="algorithm">Algorithm</label>
+                        <select id="algorithm">
+                            <option value="aes">AES-256-GCM (reversible)</option>
+                            <option value="caesar">Caesar cipher (reversible)</option>
+                            <option value="sha256">SHA-256 (one-way hash)</option>
+                        </select>
+                        <p class="field-hint" id="algorithm-hint">Authenticated encryption for private text. Keep the generated key safe.</p>
+                    </div>
+                    <div class="mode-tabs" role="tablist" aria-label="Encryption mode">
+                        <button class="mode-tab active" id="encrypt-tab" type="button" role="tab" aria-selected="true"
+                            aria-controls="encrypt-panel">🔒 Encrypt</button>
+                        <button class="mode-tab" id="decrypt-tab" type="button" role="tab" aria-selected="false"
+                            aria-controls="decrypt-panel">♧ Decrypt</button>
+                    </div>
+                    <div class="mode-panel" id="encrypt-panel" role="tabpanel" aria-labelledby="encrypt-tab">
+                        <div class="tool-fields">
+                            <div class="field-group"><label for="plain-text">Plain Text</label><textarea id="plain-text"
+                                    placeholder="Enter text to encrypt..."></textarea></div>
+                            <div class="field-group" id="encryption-key-group"><label for="encryption-key">Encryption Key</label><input
+                                    id="encryption-key" type="text" placeholder="Generate or paste key..."
+                                    autocomplete="off" spellcheck="false"><button class="secondary-action"
+                                    id="generate-key" type="button">⟳ &nbsp;Generate Key</button>
+                                <p class="field-hint" id="encryption-key-hint">Save this key safely. You need the same key to decrypt your text.</p>
+                            </div>
+                        </div>
+                        <button class="primary-action" id="encrypt-button" type="button">🔒 &nbsp;Encrypt Text</button>
+                    </div>
+
+                    <div class="mode-panel" id="decrypt-panel" role="tabpanel" aria-labelledby="decrypt-tab" hidden>
+                        <div class="tool-fields">
+                            <div class="field-group"><label for="encrypted-text">Encrypted Text</label><textarea
+                                    id="encrypted-text" placeholder="Paste encrypted text here..."></textarea></div>
+                            <div class="field-group" id="decryption-key-group"><label for="decryption-key">Decryption Key</label><input
+                                    id="decryption-key" type="text" placeholder="Paste your encryption key..."
+                                    autocomplete="off" spellcheck="false">
+                                <p class="field-hint" id="decryption-key-hint">Use the exact key that was used to encrypt this text.</p>
+                            </div>
+                        </div>
+                        <p class="field-hint" id="decrypt-unavailable" hidden>SHA-256 is a one-way hash and cannot be decrypted.</p>
+                        <button class="primary-action" id="decrypt-button" type="button">🔓 &nbsp;Decrypt Text</button>
+                    </div>
+                    <p class="status-message" id="status-message" role="status" aria-live="polite" hidden></p>
+                    <div class="output-panel" id="output-panel" aria-live="polite" hidden>
+                        <div class="output-heading"><label id="output-label" for="output-text">Output</label><button
+                                class="copy-output" id="copy-output" type="button">▢ Copy</button></div>
+                        <textarea id="output-text" readonly placeholder="Your result will appear here..."></textarea>
+                    </div>
+                </section>
+            </section>
+{% endblock %}
